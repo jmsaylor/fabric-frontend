@@ -4,8 +4,8 @@ import Transfer from "./components/Transfer";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">HyperLedger Fabric Frontend Demo</header>
+    <div>
+      <header class="title">HyperLedger Fabric Frontend Demo</header>
       <Value />
       <Transfer />
     </div>

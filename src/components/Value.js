@@ -5,7 +5,8 @@ class Value extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: "a",
+      id: "",
+      mostRecentSearchId: "",
       value: 0,
     };
 
@@ -21,8 +22,14 @@ class Value extends Component {
 
   submitHandler = async (event) => {
     event.preventDefault();
+    const { id } = this.state;
+    this.setState({
+      id: "",
+      mostRecentSearchId: this.state.id,
+      value: "loading...",
+    });
     console.log("submitting");
-    const amount = await queryMember(this.state.id);
+    const amount = await queryMember(id);
     this.setState({
       value: amount,
     });
@@ -30,14 +37,24 @@ class Value extends Component {
 
   render() {
     return (
-      <div>
-        Get Value By Id
+      <div class="box">
+        <p class="subtitle">Get Value By Id</p>
         <form onSubmit={this.submitHandler}>
-          <input type="text" onChange={this.inputHandler} />
-          <input type="submit" />
+          <input
+            type="text"
+            class="input"
+            placeholder="Accound ID"
+            value={this.state.id}
+            onChange={this.inputHandler}
+          />
+          <input type="submit" class="button is-primary" />
         </form>
-        <div>{this.state.id}</div>
-        <div>{this.state.value}</div>
+        <div class="columns">
+          <div class="column is-1">Account ID: </div>
+          <div class="column is-2">{this.state.mostRecentSearchId}</div>
+          <div class="column is-1">Balance: </div>
+          <div class="column is-2">{this.state.value}</div>
+        </div>
       </div>
     );
   }
